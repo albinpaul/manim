@@ -5,12 +5,16 @@ class SelectionSortScene(Scene):
     SORT_WAIT_TIME=0.2
     def construct(self):
         title = TexMobject("\left( Selection Sort \\right)")
-        
-        VGroup(title).arrange(DOWN)        
+        description = TextMobject("Selection sort select minimum element from a sub-array \\\\ and the swaps with the current element in a loop \\\\ Let's see this in action")
+        self.add_sound("Luxery_trimmed")
+        VGroup(title,description).arrange(DOWN)        
         self.play(Write(title))
+        self.play(Write(description))
         self.play(FadeOut(title))
         self.wait()
-    
+        self.play(FadeOut(description))
+        self.wait(4)
+
         self.input_array = [2,9,1,4,7,8,6,5,3]
         self.tex_array = self.wrap_input_array()
         self.circles = [Circle(color = BLUE) for i in self.input_array]
@@ -24,6 +28,7 @@ class SelectionSortScene(Scene):
         self.brace = None
         self.tip = None
         self.selection_sort()
+        self.wait()
         self.play(FadeOut(self.v_array))
         end_note=TextMobject("Thanks for watching the video \\\\ The code for generating the animation is in the description")
         end_frame_box = SurroundingRectangle(end_note, buff = .6, color = RED)
@@ -60,7 +65,8 @@ class SelectionSortScene(Scene):
         self.v_array.submobjects[i],self.v_array.submobjects[j] = \
             self.v_array.submobjects[j],self.v_array.submobjects[i]
         self.v_array.arrange(buff=MED_LARGE_BUFF)
-        
+        # self.add_sound("Wood_Plank_Flicks")
+        self.add_sound("Instrument_Strum")
         
     def act(self,i,j):
         text = "Smallest number \\\\ in this range is chosen \\ and swapped out"
@@ -84,12 +90,12 @@ class SelectionSortScene(Scene):
                 color=RED,
             )
             next_tip.next_to(self.v_array[j],direction = DOWN)
-
             self.play(
                 Transform(self.brace, b2),
                 Transform(self.t1, b2.get_text(text)),
                 Transform(self.tip, next_tip)
             )
+            
         self.swap(i,j)
         self.input_array[i],self.input_array[j] = self.input_array[j],self.input_array[i] 
 
