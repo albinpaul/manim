@@ -26,20 +26,23 @@ class SelectionSortScene(Scene):
         self.selection_sort()
         self.play(FadeOut(self.v_array))
         end_note=TextMobject("Thanks for watching the video \\\\ The code for generating the animation is in the description")
+        end_frame_box = SurroundingRectangle(end_note, buff = .6, color = RED)
         self.play(ShowCreation(end_note))
-        self.wait()
+        self.play(ShowCreation(end_frame_box))
+        self.wait(2.5)
+        self.play(FadeOut(end_frame_box))
         self.play(FadeOut(end_note))
-        self.wait()
+        
 
     def wrap_input_array(self):
-        return [TexMobject(str(i))
+        return [TexMobject(str(i), fill_color=WHITE)
             for i in self.input_array
         ]
     
     def selection_sort(self):
         for i in range(len(self.input_array)):
             minimum_index = i
-            for j in range( i+1,len(self.input_array)):
+            for j in range(i+1,len(self.input_array)):
                 if (self.input_array[minimum_index] > self.input_array[j]):
                     minimum_index = j
             if (i != minimum_index):        
@@ -66,10 +69,10 @@ class SelectionSortScene(Scene):
             self.t1 = self.brace.get_text(text)
             self.tip = ArrowTip(
                 start_angle= 90 * DEGREES,
-                color=LIGHT_GREY,
+                color=RED,
             )
             self.tip.next_to(self.v_array[j],direction=DOWN)
-            self.play(FadeInFrom(self.tip, UP))
+            self.play(FadeInFrom(self.tip, DOWN))
             self.play(GrowFromCenter(self.brace))
             self.play(FadeIn(self.t1))     
         else:
@@ -78,7 +81,7 @@ class SelectionSortScene(Scene):
             self.tip.next_to(self.v_array[j],direction=DOWN)
             next_tip = ArrowTip(
                 start_angle= 90 * DEGREES,
-                color=LIGHT_GREY,
+                color=RED,
             )
             next_tip.next_to(self.v_array[j],direction = DOWN)
 
